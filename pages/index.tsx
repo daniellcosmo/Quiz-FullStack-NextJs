@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 
 
-const BASE_URL = 'https://quiz-five-ebon.vercel.app/api'
+const API_URL = process.env.NEXT_PUBLIC_API_URL
 
 export default function Home() {
   const router = useRouter()
@@ -13,13 +13,13 @@ export default function Home() {
   const [respostasCertas, setRespostasCertas] = useState<number>(0)
 
   async function carregarIdsDasQuestoes() {
-    const resp = await fetch(`${BASE_URL}/questionario`)
+    const resp = await fetch(`${API_URL}/questionario`)
     const idsDasQuestoes = await resp.json()
     setIdsDasQuestoes(idsDasQuestoes)
   }
 
   async function carregarQuestao(idQuestao: number) {
-    const resp = await fetch(`${BASE_URL}/questoes/${idQuestao}`)
+    const resp = await fetch(`${API_URL}/questoes/${idQuestao}`)
     const json = await resp.json()
     const novaQuestao = QuestaoModel.criarUsandoObjeto(json)
     setQuestao(novaQuestao)
